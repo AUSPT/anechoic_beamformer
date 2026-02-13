@@ -1,0 +1,415 @@
+beamform ❯ python testing.py                                                                                                                                                                                      (beamform) 
+2026-01-31 02:29:51.722489: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+------------------------------------------------
+   AI EVALUATION: beamformer_v5.h5              
+------------------------------------------------
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1769788793.639910   10076 gpu_device.cc:2020] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 7288 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 3080, pci bus id: 0000:01:00.0, compute capability: 8.6
+Loading weights from beamformer_v5.h5...
+Weights Loaded.
+
+[Test Case #1]
+Indexing target...
+Indexing interference...
+Target: 2967-4902-0000.flac
+Noise:  1263-138246-0027.flac
+2026-01-31 02:29:56.145172: I external/local_xla/xla/service/service.cc:163] XLA service 0x7f328c007d70 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2026-01-31 02:29:56.145184: I external/local_xla/xla/service/service.cc:171]   StreamExecutor device (0): NVIDIA GeForce RTX 3080, Compute Capability 8.6
+2026-01-31 02:29:56.156147: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:269] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+2026-01-31 02:29:56.220852: I external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:473] Loaded cuDNN version 91801
+I0000 00:00:1769788797.359036   10147 device_compiler.h:196] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #1)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.384      | 0.622      | +0.237
+PESQ       | 1.042      | 1.451      | +0.409
+----------------------------------------------
+Time: 1.489s
+========================================
+Spectrogram: eval_01_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: 
+
+[Test Case #2]
+Target: 846-130985-0048.flac
+Noise:  7316-10642-0056.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #2)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.613      | 0.872      | +0.259
+PESQ       | 1.061      | 1.643      | +0.582
+----------------------------------------------
+Time: 0.103s
+========================================
+Spectrogram: eval_02_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: 
+
+[Test Case #3]
+Target: 7491-110524-0004.flac
+Noise:  8776-270778-0014.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #3)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.591      | 0.801      | +0.210
+PESQ       | 1.032      | 1.604      | +0.572
+----------------------------------------------
+Time: 0.094s
+========================================
+Spectrogram: eval_03_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: 
+
+[Test Case #4]
+Target: 1736-152007-0084.flac
+Noise:  4640-19189-0005.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #4)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.166      | 0.377      | +0.211
+PESQ       | 1.037      | 1.168      | +0.131
+----------------------------------------------
+Time: 0.093s
+========================================
+Spectrogram: eval_04_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: 
+
+[Test Case #5]
+Target: 1110-134828-0013.flac
+Noise:  2137-131742-0022.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #5)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.400      | 0.748      | +0.349
+PESQ       | 1.078      | 1.361      | +0.283
+----------------------------------------------
+Time: 0.095s
+========================================
+Spectrogram: eval_05_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: 
+
+[Test Case #6]
+Target: 807-124223-0028.flac
+Noise:  2696-157636-0013.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #6)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.587      | 0.836      | +0.249
+PESQ       | 1.050      | 1.681      | +0.632
+----------------------------------------------
+Time: 0.086s
+========================================
+Spectrogram: eval_06_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: 
+
+[Test Case #7]
+Target: 3346-158751-0104.flac
+Noise:  511-131228-0062.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #7)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.507      | 0.747      | +0.240
+PESQ       | 1.039      | 1.098      | +0.059
+----------------------------------------------
+Time: 0.093s
+========================================
+Spectrogram: eval_07_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: 
+
+[Test Case #8]
+Target: 7327-96491-0003.flac
+Noise:  731-366-0056.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #8)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.608      | 0.830      | +0.222
+PESQ       | 1.112      | 1.439      | +0.327
+----------------------------------------------
+Time: 0.080s
+========================================
+Spectrogram: eval_08_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: 
+
+[Test Case #9]
+Target: 4262-14487-0041.flac
+Noise:  14-212-0031.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #9)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.492      | 0.773      | +0.281
+PESQ       | 1.034      | 1.430      | +0.396
+----------------------------------------------
+Time: 0.085s
+========================================
+Spectrogram: eval_09_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: 
+
+[Test Case #10]
+Target: 1107-1042-0032.flac
+Noise:  9026-282386-0019.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #10)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.460      | 0.720      | +0.260
+PESQ       | 1.048      | 1.331      | +0.283
+----------------------------------------------
+Time: 0.071s
+========================================
+Spectrogram: eval_10_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: 
+
+[Test Case #11]
+Target: 7218-80699-0048.flac
+Noise:  318-124224-0057.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #11)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.402      | 0.728      | +0.326
+PESQ       | 1.060      | 1.550      | +0.490
+----------------------------------------------
+Time: 0.066s
+========================================
+Spectrogram: eval_11_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: 
+
+[Test Case #12]
+Target: 8445-281203-0063.flac
+Noise:  8474-281188-0040.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #12)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.686      | 0.909      | +0.223
+PESQ       | 1.049      | 1.765      | +0.715
+----------------------------------------------
+Time: 0.067s
+========================================
+Spectrogram: eval_12_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: 
+
+[Test Case #13]
+Target: 5183-68763-0034.flac
+Noise:  7247-94108-0023.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #13)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.368      | 0.672      | +0.304
+PESQ       | 1.108      | 1.259      | +0.151
+----------------------------------------------
+Time: 0.067s
+========================================
+Spectrogram: eval_13_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: 
+\
+[Test Case #14]
+Target: 1765-143010-0060.flac
+Noise:  3879-174923-0054.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #14)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.575      | 0.817      | +0.242
+PESQ       | 1.044      | 1.386      | +0.343
+----------------------------------------------
+Time: 0.072s
+========================================
+Spectrogram: eval_14_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: 
+
+[Test Case #15]
+Target: 7879-274125-0008.flac
+Noise:  4236-8927-0014.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #15)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.499      | 0.772      | +0.272
+PESQ       | 1.023      | 1.371      | +0.348
+----------------------------------------------
+Time: 0.100s
+========================================
+Spectrogram: eval_15_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: 
+
+[Test Case #16]
+Target: 37-214-0017.flac
+Noise:  8226-274369-0057.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #16)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.458      | 0.730      | +0.272
+PESQ       | 1.032      | 1.201      | +0.169
+----------------------------------------------
+Time: 0.072s
+========================================
+Spectrogram: eval_16_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: 
+
+[Test Case #17]
+Target: 7307-92008-0014.flac
+Noise:  4222-12898-0009.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #17)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.490      | 0.776      | +0.286
+PESQ       | 1.040      | 1.482      | +0.442
+----------------------------------------------
+Time: 0.071s
+========================================
+Spectrogram: eval_17_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: 
+
+[Test Case #18]
+Target: 542-125348-0034.flac
+Noise:  4433-16802-0023.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #18)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.580      | 0.837      | +0.256
+PESQ       | 1.069      | 1.397      | +0.328
+----------------------------------------------
+Time: 0.090s
+========================================
+Spectrogram: eval_18_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: 
+
+[Test Case #19]
+Target: 2485-151993-0012.flac
+Noise:  2812-160187-0088.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #19)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.451      | 0.653      | +0.201
+PESQ       | 1.026      | 1.570      | +0.544
+----------------------------------------------
+Time: 0.071s
+========================================
+Spectrogram: eval_19_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: 
+
+[Test Case #20]
+Target: 4955-28245-0028.flac
+Noise:  2570-157243-0083.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #20)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE    
+----------------------------------------------
+STOI       | 0.615      | 0.853      | +0.237
+PESQ       | 1.024      | 1.294      | +0.270
+----------------------------------------------
+Time: 0.092s
+========================================
+Spectrogram: eval_20_SPECTROGRAM.png

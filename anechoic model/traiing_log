@@ -1,0 +1,531 @@
+           .-------------------------:                    jehobe@jehobox
+          .+=========================.                    --------------
+         :++===++==================-       :++-           OS: CachyOS x86_64
+        :*++====+++++=============-        .==:           Host: Z390 AORUS ULTRA
+       -*+++=====+***++==========:                        Kernel: Linux 6.18.9-2-cachyos
+      =*++++========------------:                         Uptime: 52 seconds
+     =*+++++=====-                     ...                Packages: 1307 (pacman)
+   .+*+++++=-===:                    .=+++=:              Shell: fish 4.4.0
+  :++++=====-==:                     -*****+              Display (Odyssey G70B): 3840x2160 in 32", 144 Hz [External]
+ :++========-=.                      .=+**+.              WM: Hyprland 0.53.3 (Wayland)
+.+==========-.                          .                 Theme: Breeze-Dark [GTK2], Breeze [GTK3]
+ :+++++++====-                                .--==-.     Icons: breeze-dark [GTK2/3/4]
+  :++==========.                             :+++++++:    Font: Noto Sans (10pt) [GTK2/3/4]
+   .-===========.                            =*****+*+    Cursor: breeze (24px)
+    .-===========:                           .+*****+:    Terminal: kitty 0.45.0
+      -=======++++:::::::::::::::::::::::::-:  .---:      Terminal Font: NotoSansMono-Regular (11pt)
+       :======++++====+++******************=.             CPU: Intel(R) Core(TM) i9-9900KF (16) @ 5.00 GHz
+        :=====+++==========++++++++++++++*-               GPU: NVIDIA GeForce RTX 3080 [Discrete]
+         .====++==============++++++++++*-                Memory: 1.68 GiB / 15.53 GiB (11%)
+          .===+==================+++++++:                 Swap: 0 B / 15.53 GiB (0%)
+           .-=======================+++:                  Disk (/): 472.54 GiB / 934.32 GiB (51%) - btrfs
+             ..........................                   Disk (/mnt/Dagger): 475.04 GiB / 931.50 GiB (51%) - btrfs
+                                                          Local IP (eno2): 192.168.8.102/24
+                                                          Locale: en_AU.UTF-8
+
+
+
+~
+❯ sudo ln -s /mnt/Dagger/mlaudio/target /home/jehobe/anechoic_chamber
+[sudo] password for jehobe:
+
+~
+❯ sudo ln -s /mnt/Dagger/mlaudio/interference /home/jehobe/anechoic_chamber
+
+~
+❯ conda activate reverberantBeamformer
+
+~
+reverberantBeamformer ❯ cd anechoic_chamber/                                                                                  (reverberantBeamformer)
+
+~/anechoic_chamber
+reverberantBeamformer ❯ python train_complex_unet_anehcoic.py                                                                                   (reverberantBeamformer)
+2026-02-13 12:42:01.404936: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Initializing Complex U-Net...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1770948724.327076    4606 gpu_device.cc:2020] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 7467 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 3080, pci bus id: 0000:01:00.0, compute capability: 8.6
+Model: "functional"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Layer (type)                  ┃ Output Shape              ┃         Param # ┃ Connected to               ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ input_layer (InputLayer)      │ (None, None, 257, 4)      │               0 │ -                          │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ lambda (Lambda)               │ (None, None, 256, 4)      │               0 │ input_layer[0][0]          │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ conv2d (Conv2D)               │ (None, None, 256, 16)     │             592 │ lambda[0][0]               │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ batch_normalization           │ (None, None, 256, 16)     │              64 │ conv2d[0][0]               │
+│ (BatchNormalization)          │                           │                 │                            │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ leaky_re_lu (LeakyReLU)       │ (None, None, 256, 16)     │               0 │ batch_normalization[0][0]  │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ conv2d_1 (Conv2D)             │ (None, None, 128, 16)     │           2,320 │ leaky_re_lu[0][0]          │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ batch_normalization_1         │ (None, None, 128, 16)     │              64 │ conv2d_1[0][0]             │
+│ (BatchNormalization)          │                           │                 │                            │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ leaky_re_lu_1 (LeakyReLU)     │ (None, None, 128, 16)     │               0 │ batch_normalization_1[0][… │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ conv2d_2 (Conv2D)             │ (None, None, 128, 32)     │           4,640 │ leaky_re_lu_1[0][0]        │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ batch_normalization_2         │ (None, None, 128, 32)     │             128 │ conv2d_2[0][0]             │
+│ (BatchNormalization)          │                           │                 │                            │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ leaky_re_lu_2 (LeakyReLU)     │ (None, None, 128, 32)     │               0 │ batch_normalization_2[0][… │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ conv2d_3 (Conv2D)             │ (None, None, 64, 32)      │           9,248 │ leaky_re_lu_2[0][0]        │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ batch_normalization_3         │ (None, None, 64, 32)      │             128 │ conv2d_3[0][0]             │
+│ (BatchNormalization)          │                           │                 │                            │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ leaky_re_lu_3 (LeakyReLU)     │ (None, None, 64, 32)      │               0 │ batch_normalization_3[0][… │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ conv2d_4 (Conv2D)             │ (None, None, 64, 64)      │          18,496 │ leaky_re_lu_3[0][0]        │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ batch_normalization_4         │ (None, None, 64, 64)      │             256 │ conv2d_4[0][0]             │
+│ (BatchNormalization)          │                           │                 │                            │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ leaky_re_lu_4 (LeakyReLU)     │ (None, None, 64, 64)      │               0 │ batch_normalization_4[0][… │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ conv2d_5 (Conv2D)             │ (None, None, 32, 64)      │          36,928 │ leaky_re_lu_4[0][0]        │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ batch_normalization_5         │ (None, None, 32, 64)      │             256 │ conv2d_5[0][0]             │
+│ (BatchNormalization)          │                           │                 │                            │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ leaky_re_lu_5 (LeakyReLU)     │ (None, None, 32, 64)      │               0 │ batch_normalization_5[0][… │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ conv2d_6 (Conv2D)             │ (None, None, 32, 128)     │          73,856 │ leaky_re_lu_5[0][0]        │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ batch_normalization_6         │ (None, None, 32, 128)     │             512 │ conv2d_6[0][0]             │
+│ (BatchNormalization)          │                           │                 │                            │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ leaky_re_lu_6 (LeakyReLU)     │ (None, None, 32, 128)     │               0 │ batch_normalization_6[0][… │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ conv2d_7 (Conv2D)             │ (None, None, 16, 128)     │         147,584 │ leaky_re_lu_6[0][0]        │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ batch_normalization_7         │ (None, None, 16, 128)     │             512 │ conv2d_7[0][0]             │
+│ (BatchNormalization)          │                           │                 │                            │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ leaky_re_lu_7 (LeakyReLU)     │ (None, None, 16, 128)     │               0 │ batch_normalization_7[0][… │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ conv2d_8 (Conv2D)             │ (None, None, 16, 256)     │         295,168 │ leaky_re_lu_7[0][0]        │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ batch_normalization_8         │ (None, None, 16, 256)     │           1,024 │ conv2d_8[0][0]             │
+│ (BatchNormalization)          │                           │                 │                            │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ leaky_re_lu_8 (LeakyReLU)     │ (None, None, 16, 256)     │               0 │ batch_normalization_8[0][… │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ conv2d_transpose              │ (None, None, 32, 128)     │         295,040 │ leaky_re_lu_8[0][0]        │
+│ (Conv2DTranspose)             │                           │                 │                            │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ concatenate (Concatenate)     │ (None, None, 32, 256)     │               0 │ conv2d_transpose[0][0],    │
+│                               │                           │                 │ leaky_re_lu_6[0][0]        │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ batch_normalization_9         │ (None, None, 32, 256)     │           1,024 │ concatenate[0][0]          │
+│ (BatchNormalization)          │                           │                 │                            │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ leaky_re_lu_9 (LeakyReLU)     │ (None, None, 32, 256)     │               0 │ batch_normalization_9[0][… │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ conv2d_transpose_1            │ (None, None, 64, 64)      │         147,520 │ leaky_re_lu_9[0][0]        │
+│ (Conv2DTranspose)             │                           │                 │                            │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ concatenate_1 (Concatenate)   │ (None, None, 64, 128)     │               0 │ conv2d_transpose_1[0][0],  │
+│                               │                           │                 │ leaky_re_lu_4[0][0]        │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ batch_normalization_10        │ (None, None, 64, 128)     │             512 │ concatenate_1[0][0]        │
+│ (BatchNormalization)          │                           │                 │                            │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ leaky_re_lu_10 (LeakyReLU)    │ (None, None, 64, 128)     │               0 │ batch_normalization_10[0]… │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ conv2d_transpose_2            │ (None, None, 128, 32)     │          36,896 │ leaky_re_lu_10[0][0]       │
+│ (Conv2DTranspose)             │                           │                 │                            │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ concatenate_2 (Concatenate)   │ (None, None, 128, 64)     │               0 │ conv2d_transpose_2[0][0],  │
+│                               │                           │                 │ leaky_re_lu_2[0][0]        │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ batch_normalization_11        │ (None, None, 128, 64)     │             256 │ concatenate_2[0][0]        │
+│ (BatchNormalization)          │                           │                 │                            │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ leaky_re_lu_11 (LeakyReLU)    │ (None, None, 128, 64)     │               0 │ batch_normalization_11[0]… │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ conv2d_transpose_3            │ (None, None, 256, 16)     │           9,232 │ leaky_re_lu_11[0][0]       │
+│ (Conv2DTranspose)             │                           │                 │                            │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ concatenate_3 (Concatenate)   │ (None, None, 256, 32)     │               0 │ conv2d_transpose_3[0][0],  │
+│                               │                           │                 │ leaky_re_lu[0][0]          │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ batch_normalization_12        │ (None, None, 256, 32)     │             128 │ concatenate_3[0][0]        │
+│ (BatchNormalization)          │                           │                 │                            │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ leaky_re_lu_12 (LeakyReLU)    │ (None, None, 256, 32)     │               0 │ batch_normalization_12[0]… │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ conv2d_9 (Conv2D)             │ (None, None, 256, 2)      │              66 │ leaky_re_lu_12[0][0]       │
+├───────────────────────────────┼───────────────────────────┼─────────────────┼────────────────────────────┤
+│ lambda_1 (Lambda)             │ (None, None, 257, 2)      │               0 │ conv2d_9[0][0]             │
+└───────────────────────────────┴───────────────────────────┴─────────────────┴────────────────────────────┘
+ Total params: 1,082,450 (4.13 MB)
+ Trainable params: 1,080,018 (4.12 MB)
+ Non-trainable params: 2,432 (9.50 KB)
+Epoch 1/100
+Indexing target...
+Indexing interference...
+2026-02-13 12:42:24.127930: I external/local_xla/xla/service/service.cc:163] XLA service 0x7f1d4806ba00 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2026-02-13 12:42:24.127942: I external/local_xla/xla/service/service.cc:171]   StreamExecutor device (0): NVIDIA GeForce RTX 3080, Compute Capability 8.6
+2026-02-13 12:42:24.257627: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:269] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+2026-02-13 12:42:24.911610: I external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:473] Loaded cuDNN version 91900
+2026-02-13 12:42:26.091948: W external/local_xla/xla/tsl/framework/bfc_allocator.cc:310] Allocator (GPU_0_bfc) ran out of memory trying to allocate 17.15GiB with freed_by_count=0. The caller indicates that this is not a failure, but this may mean that there could be performance gains if more memory were available.
+2026-02-13 12:42:31.218954: W external/local_xla/xla/tsl/framework/bfc_allocator.cc:310] Allocator (GPU_0_bfc) ran out of memory trying to allocate 16.19GiB with freed_by_count=0. The caller indicates that this is not a failure, but this may mean that there could be performance gains if more memory were available.
+I0000 00:00:1770948756.228601    4670 device_compiler.h:196] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 337ms/step - loss: 0.6303/home/jehobe/anaconda3/envs/reverberantBeamformer/lib/python3.10/site-packages/keras/src/callbacks/model_checkpoint.py:276: UserWarning: Can save best model only with val_loss available.
+  if self._should_save_model(epoch, batch, logs, filepath):
+WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `mod500/500 ━━━━━━━━━━━━━━━━━━━━ 200s 337ms/step - loss: 0.4851l, 'my_model.keras')`.
+Epoch 2/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 327ms/step - loss: 0.3490WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 327ms/step - loss: 0.3258.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 3/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2880WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2845.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 4/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2757WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2757.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 5/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2678WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 325ms/step - loss: 0.2702.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 6/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2631WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2654.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 7/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2667WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2642.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 8/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2652WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2626.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 9/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2597WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2613.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 10/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2601WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2577.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 11/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2568WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2554.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 12/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2530WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 325ms/step - loss: 0.2536.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 13/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2525WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2533.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 14/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2547WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2544.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 15/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2536WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2512.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 16/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2498WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2506.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 17/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2467WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2496.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 18/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2459WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2470.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 19/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2424WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2450.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 20/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2463WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 325ms/step - loss: 0.2484.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 21/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2471WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2488.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 22/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2434WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2458.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 23/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 323ms/step - loss: 0.2472WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 161s 323ms/step - loss: 0.2457.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 24/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2474WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 325ms/step - loss: 0.2469.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 25/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 323ms/step - loss: 0.2502WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2469.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 26/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 323ms/step - loss: 0.2469WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2459.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 27/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2457WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2453.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 28/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2416WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2426.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 29/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2416WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2445.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 30/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2426WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2448.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 31/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2423WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2421.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 32/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2464WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2432.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 33/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2424WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2418.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 34/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2410WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2417.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 35/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2398WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2390.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 36/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2400WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2411.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 37/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2377WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 325ms/step - loss: 0.2396.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 38/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2398WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2413.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 39/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2381WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2394.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 40/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2413WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2409.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 41/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2443WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 325ms/step - loss: 0.2420.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 42/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2371WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 325ms/step - loss: 0.2396.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 43/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2352WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2380.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 44/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2415WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2404.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 45/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2402WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2399.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 46/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2366WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2367.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 47/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2388WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2388.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 48/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 323ms/step - loss: 0.2401WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2391.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 49/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2412WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 327ms/step - loss: 0.2391.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 50/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2389WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2374.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 51/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2423WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2403.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 52/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2397WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2393.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 53/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2373WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2364.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 54/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2378WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 325ms/step - loss: 0.2390.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 55/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2389WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2383.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 56/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2377WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2369.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 57/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2362WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 325ms/step - loss: 0.2356.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 58/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2390WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2386.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 59/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2386WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2366.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 60/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2364WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2356.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 61/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2352WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2360.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 62/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2390WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2375.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 63/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2382WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2361.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 64/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2338WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2353.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 65/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2405WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2387.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 66/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2390WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2374.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 67/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2377WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2357.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 68/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2361WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2371.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 69/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2338WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2348.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 70/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 327ms/step - loss: 0.2349WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 327ms/step - loss: 0.2352.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 71/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2344WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 325ms/step - loss: 0.2342.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 72/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2378WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2368.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 73/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2365WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 325ms/step - loss: 0.2370.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 74/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2306WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 325ms/step - loss: 0.2321.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 75/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2355WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 325ms/step - loss: 0.2354.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 76/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2331WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2318.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 77/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2356WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2370.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 78/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2353WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2350.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 79/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2351WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2341.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 80/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2360WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2348.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 81/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2354WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2342.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 82/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 326ms/step - loss: 0.2376WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 327ms/step - loss: 0.2351.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 83/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2348WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2347.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 84/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2330WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 163s 326ms/step - loss: 0.2335.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 85/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2361WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2347.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 86/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2345WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2368.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 87/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 323ms/step - loss: 0.2348WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2348.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 88/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2342WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2337.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 89/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 323ms/step - loss: 0.2302WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 323ms/step - loss: 0.2317.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 90/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2330WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2323.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 91/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2348WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2328.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 92/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2330WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2339.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 93/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2321WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2303.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 94/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2306WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2315.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 95/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 325ms/step - loss: 0.2363WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2343.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 96/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2316WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2316.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 97/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2354WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2345.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 98/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2355WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2347.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 99/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 323ms/step - loss: 0.2337WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 324ms/step - loss: 0.2329.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Epoch 100/100
+500/500 ━━━━━━━━━━━━━━━━━━━━ 0s 324ms/step - loss: 0.2351WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We r500/500 ━━━━━━━━━━━━━━━━━━━━ 162s 325ms/step - loss: 0.2338.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Training Complete.
+
+~/anechoic_chamber 4h 31m 30s
+reverberantBeamformer ❯ python testing_anechoic.py                                                                                                           (reverberantBeamformer)
+2026-02-13 17:35:42.226745: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+------------------------------------------------
+   AI EVALUATION: beamformer_v9_epoch_02.h5
+------------------------------------------------
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1770966344.628108  889516 gpu_device.cc:2020] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 7531 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 3080, pci bus id: 0000:01:00.0, compute capability: 8.6
+Loading weights from beamformer_v9_epoch_02.h5...
+Weights Loaded.
+
+[Test Case #1]
+Indexing target...
+Indexing interference...
+Target: 584-47041-0022.flac
+Noise:  6294-86679-0053.flac
+/home/jehobe/anaconda3/envs/reverberantBeamformer/lib/python3.10/site-packages/librosa/core/spectrum.py:266: UserWarning: n_fft=512 is too large for input signal of length=2
+  warnings.warn(
+2026-02-13 17:35:47.255144: I external/local_xla/xla/service/service.cc:163] XLA service 0x7f1768004690 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2026-02-13 17:35:47.255155: I external/local_xla/xla/service/service.cc:171]   StreamExecutor device (0): NVIDIA GeForce RTX 3080, Compute Capability 8.6
+2026-02-13 17:35:47.266334: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:269] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+2026-02-13 17:35:47.339386: I external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:473] Loaded cuDNN version 91900
+I0000 00:00:1770966348.350928  889588 device_compiler.h:196] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+Traceback (most recent call last):
+  File "/home/jehobe/anechoic_chamber/testing_anechoic.py", line 323, in <module>
+    main()
+  File "/home/jehobe/anechoic_chamber/testing_anechoic.py", line 290, in main
+    sf.write(f_in, mix_matrix.T, SAMPLE_RATE)
+  File "/home/jehobe/anaconda3/envs/reverberantBeamformer/lib/python3.10/site-packages/soundfile.py", line 363, in write
+    with SoundFile(file, 'w', samplerate, channels,
+  File "/home/jehobe/anaconda3/envs/reverberantBeamformer/lib/python3.10/site-packages/soundfile.py", line 690, in __init__
+    self._file = self._open(file, mode_int, closefd)
+  File "/home/jehobe/anaconda3/envs/reverberantBeamformer/lib/python3.10/site-packages/soundfile.py", line 1265, in _open
+    raise LibsndfileError(err, prefix="Error opening {0!r}: ".format(self.name))
+soundfile.LibsndfileError: Error opening 'eval_01_INPUT.wav': Format not recognised.
+
+~/anechoic_chamber 8s
+reverberantBeamformer ❯ python testing_anechoic.py                                                                                                           (reverberantBeamformer)
+2026-02-13 17:36:59.366805: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+------------------------------------------------
+   AI EVALUATION: beamformer_v9_epoch_02.h5
+------------------------------------------------
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1770966421.292497  889858 gpu_device.cc:2020] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 7531 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 3080, pci bus id: 0000:01:00.0, compute capability: 8.6
+Loading weights from beamformer_v9_epoch_02.h5...
+Weights Loaded.
+
+[Test Case #1]
+Indexing target...
+Indexing interference...
+Target: 2825-666-0049.flac
+Noise:  7938-110127-0005.flac
+/home/jehobe/anaconda3/envs/reverberantBeamformer/lib/python3.10/site-packages/librosa/core/spectrum.py:266: UserWarning: n_fft=512 is too large for input signal of length=2
+  warnings.warn(
+2026-02-13 17:37:03.804223: I external/local_xla/xla/service/service.cc:163] XLA service 0x7f0d00005ce0 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2026-02-13 17:37:03.804234: I external/local_xla/xla/service/service.cc:171]   StreamExecutor device (0): NVIDIA GeForce RTX 3080, Compute Capability 8.6
+2026-02-13 17:37:03.815642: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:269] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+2026-02-13 17:37:03.878787: I external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:473] Loaded cuDNN version 91900
+I0000 00:00:1770966424.706085  889929 device_compiler.h:196] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+Traceback (most recent call last):
+  File "/home/jehobe/anechoic_chamber/testing_anechoic.py", line 323, in <module>
+    main()
+  File "/home/jehobe/anechoic_chamber/testing_anechoic.py", line 290, in main
+    sf.write(f_in, mix_matrix.T, SAMPLE_RATE)
+  File "/home/jehobe/anaconda3/envs/reverberantBeamformer/lib/python3.10/site-packages/soundfile.py", line 363, in write
+    with SoundFile(file, 'w', samplerate, channels,
+  File "/home/jehobe/anaconda3/envs/reverberantBeamformer/lib/python3.10/site-packages/soundfile.py", line 690, in __init__
+    self._file = self._open(file, mode_int, closefd)
+  File "/home/jehobe/anaconda3/envs/reverberantBeamformer/lib/python3.10/site-packages/soundfile.py", line 1265, in _open
+    raise LibsndfileError(err, prefix="Error opening {0!r}: ".format(self.name))
+soundfile.LibsndfileError: Error opening 'eval_01_INPUT.wav': Format not recognised.
+
+~/anechoic_chamber 6s
+reverberantBeamformer ❯ python testing_anechoic.py                                                                                                           (reverberantBeamformer)
+2026-02-13 17:38:02.148119: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+------------------------------------------------
+   AI EVALUATION: beamformer_v9_epoch_02.h5
+------------------------------------------------
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1770966484.152906  891875 gpu_device.cc:2020] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 6986 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 3080, pci bus id: 0000:01:00.0, compute capability: 8.6
+Loading weights from beamformer_v9_epoch_02.h5...
+Weights Loaded.
+
+[Test Case #1]
+Indexing target...
+Indexing interference...
+Target: 2985-153199-0011.flac
+Noise:  3994-11512-0016.flac
+/home/jehobe/anaconda3/envs/reverberantBeamformer/lib/python3.10/site-packages/librosa/core/spectrum.py:266: UserWarning: n_fft=512 is too large for input signal of length=2
+  warnings.warn(
+2026-02-13 17:38:06.675406: I external/local_xla/xla/service/service.cc:163] XLA service 0x7f7464012e90 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2026-02-13 17:38:06.675418: I external/local_xla/xla/service/service.cc:171]   StreamExecutor device (0): NVIDIA GeForce RTX 3080, Compute Capability 8.6
+2026-02-13 17:38:06.686534: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:269] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+2026-02-13 17:38:06.751840: I external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:473] Loaded cuDNN version 91900
+I0000 00:00:1770966487.669886  891946 device_compiler.h:196] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+Traceback (most recent call last):
+  File "/home/jehobe/anechoic_chamber/testing_anechoic.py", line 325, in <module>
+    main()
+  File "/home/jehobe/anechoic_chamber/testing_anechoic.py", line 292, in main
+    sf.write(f_in, mix_matrix.T, SAMPLE_RATE)
+  File "/home/jehobe/anaconda3/envs/reverberantBeamformer/lib/python3.10/site-packages/soundfile.py", line 363, in write
+    with SoundFile(file, 'w', samplerate, channels,
+  File "/home/jehobe/anaconda3/envs/reverberantBeamformer/lib/python3.10/site-packages/soundfile.py", line 690, in __init__
+    self._file = self._open(file, mode_int, closefd)
+  File "/home/jehobe/anaconda3/envs/reverberantBeamformer/lib/python3.10/site-packages/soundfile.py", line 1265, in _open
+    raise LibsndfileError(err, prefix="Error opening {0!r}: ".format(self.name))
+soundfile.LibsndfileError: Error opening 'eval_01_INPUT.wav': Format not recognised.
+
+~/anechoic_chamber 6s
+reverberantBeamformer ❯ python testing_anechoic.py                                                                                                           (reverberantBeamformer)
+2026-02-13 17:54:32.580403: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+------------------------------------------------
+   AI EVALUATION: beamformer_v6_anechoic.h5
+------------------------------------------------
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1770967474.438994  897643 gpu_device.cc:2020] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 7111 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 3080, pci bus id: 0000:01:00.0, compute capability: 8.6
+Loading weights from beamformer_v6_anechoic.h5...
+Load Error: 'NoneType' object has no attribute 'load_weights'
+
+~/anechoic_chamber
+reverberantBeamformer ❯ python testing_anechoic.py                                                                                                           (reverberantBeamformer)
+2026-02-13 17:56:18.396281: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+------------------------------------------------
+   AI EVALUATION: beamformer_v6_anechoic.h5
+------------------------------------------------
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1770967580.167125  897997 gpu_device.cc:2020] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 7013 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 3080, pci bus id: 0000:01:00.0, compute capability: 8.6
+Loading weights from beamformer_v6_anechoic.h5...
+Load Error: 'NoneType' object has no attribute 'load_weights'
+
+~/anechoic_chamber
+reverberantBeamformer ❯ python testing_anechoic.py                                                                                                           (reverberantBeamformer)
+2026-02-13 17:58:01.031383: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+------------------------------------------------
+   AI EVALUATION: beamformer_v6.h5
+------------------------------------------------
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1770967682.813604  898237 gpu_device.cc:2020] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 7042 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 3080, pci bus id: 0000:01:00.0, compute capability: 8.6
+Loading weights from beamformer_v6.h5...
+Load Error: 'NoneType' object has no attribute 'load_weights'
+
+~/anechoic_chamber
+reverberantBeamformer ❯
