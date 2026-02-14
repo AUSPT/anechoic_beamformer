@@ -9,7 +9,7 @@ Download these (large) files and extrac the files you want to be the target (at 
 
 Extract your interference into the interference folder. Same deal with above, but this audio will be simulated to be coming from an angle (40 deg). 
 
-The whole thing is in a reverberant room with two miocrophones spaced 6cm apart. Run verify_room.py after completing all of the other steps, and you will see:
+The whole thing is in an anechoic chamber with two miocrophones spaced 8cm apart.
 
 The models end up being approximately twelve megabytes which is a suitable sized model for a mid-range phone.
 
