@@ -1,0 +1,397 @@
+beamform ❯ python testing_hybrid.py              (beamform)
+2026-02-14 05:56:39.585619: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+------------------------------------------------
+   AI EVALUATION: gsc_unet_model.keras
+------------------------------------------------
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1771010802.727118   76681 gpu_device.cc:2020] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 6601 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 3080, pci bus id: 0000:01:00.0, compute capability: 8.6
+Loading weights from gsc_unet_model.keras...
+Weights Loaded.
+
+[Test Case #1]
+Indexing target...
+Indexing interference...
+Target: 4442-2868-0090.flac
+Noise:  2182-181183-0034.flac
+2026-02-14 05:56:48.249976: I external/local_xla/xla/service/service.cc:163] XLA service 0x7f7f400037a0 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2026-02-14 05:56:48.249988: I external/local_xla/xla/service/service.cc:171]   StreamExecutor device (0): NVIDIA GeForce RTX 3080, Compute Capability 8.6
+2026-02-14 05:56:48.269681: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:269] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+2026-02-14 05:56:48.305140: I external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:473] Loaded cuDNN version 91900
+I0000 00:00:1771010809.713525   76754 device_compiler.h:196] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #1)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.614      | 0.453      | -0.161
+PESQ       | 1.026      | 1.077      | +0.051
+OSINR (dB) | -18.996      | -20.849      | -1.853
+----------------------------------------------
+Spectrogram: eval_01_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit:
+
+[Test Case #2]
+Target: 3257-169288-0020.flac
+Noise:  3389-13248-0022.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #2)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.776      | 0.700      | -0.076
+PESQ       | 1.018      | 1.057      | +0.040
+OSINR (dB) | -45.594      | -29.037      | +16.557
+----------------------------------------------
+Spectrogram: eval_02_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit:
+
+[Test Case #3]
+Target: 4969-58757-0016.flac
+Noise:  1743-142912-0034.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #3)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.623      | 0.584      | -0.039
+PESQ       | 1.043      | 1.058      | +0.015
+OSINR (dB) | -34.797      | -29.412      | +5.385
+----------------------------------------------
+Spectrogram: eval_03_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit:
+
+[Test Case #4]
+Target: 7923-258989-0002.flac
+Noise:  90-121085-0005.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #4)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.797      | 0.806      | +0.010
+PESQ       | 1.028      | 1.105      | +0.077
+OSINR (dB) | -22.788      | -21.774      | +1.013
+----------------------------------------------
+Spectrogram: eval_04_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit:
+
+[Test Case #5]
+Target: 8346-244446-0026.flac
+Noise:  4145-14013-0031.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #5)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.693      | 0.613      | -0.080
+PESQ       | 1.072      | 1.079      | +0.008
+OSINR (dB) | -16.267      | -15.196      | +1.071
+----------------------------------------------
+Spectrogram: eval_05_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit:
+
+[Test Case #6]
+Target: 5993-36961-0042.flac
+Noise:  6458-61323-0012.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #6)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.584      | 0.521      | -0.063
+PESQ       | 1.061      | 1.079      | +0.018
+OSINR (dB) | -27.366      | -32.355      | -4.990
+----------------------------------------------
+Spectrogram: eval_06_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit:
+
+[Test Case #7]
+Target: 8445-281202-0022.flac
+Noise:  1165-135220-0021.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #7)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.770      | 0.767      | -0.003
+PESQ       | 1.030      | 1.117      | +0.087
+OSINR (dB) | -50.756      | -35.773      | +14.982
+----------------------------------------------
+Spectrogram: eval_07_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit:
+
+[Test Case #8]
+Target: 4799-25950-0054.flac
+Noise:  4586-19665-0016.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #8)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.612      | 0.531      | -0.080
+PESQ       | 1.326      | 1.106      | -0.220
+OSINR (dB) | -17.820      | -14.224      | +3.595
+----------------------------------------------
+Spectrogram: eval_08_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit:
+
+[Test Case #9]
+Target: 5893-54390-0023.flac
+Noise:  83-3054-0014.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #9)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.682      | 0.677      | -0.005
+PESQ       | 1.055      | 1.174      | +0.119
+OSINR (dB) | -22.666      | -20.923      | +1.743
+----------------------------------------------
+Spectrogram: eval_09_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit:
+
+[Test Case #10]
+Target: 1572-141718-0099.flac
+Noise:  4340-15220-0004.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #10)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.607      | 0.504      | -0.103
+PESQ       | 1.040      | 1.087      | +0.048
+OSINR (dB) | -41.952      | -58.709      | -16.757
+----------------------------------------------
+Spectrogram: eval_10_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit:
+
+[Test Case #11]
+Target: 1579-128140-0003.flac
+Noise:  6371-63713-0077.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #11)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.806      | 0.824      | +0.017
+PESQ       | 1.058      | 1.223      | +0.165
+OSINR (dB) | -33.915      | -29.125      | +4.790
+----------------------------------------------
+Spectrogram: eval_11_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit:
+
+[Test Case #12]
+Target: 2013-147610-0020.flac
+Noise:  6927-86043-0049.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #12)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.662      | 0.549      | -0.113
+PESQ       | 1.089      | 1.101      | +0.011
+OSINR (dB) | -25.982      | -26.123      | -0.140
+----------------------------------------------
+Spectrogram: eval_12_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit:
+
+[Test Case #13]
+Target: 4545-9166-0123.flac
+Noise:  2517-135229-0040.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #13)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.701      | 0.683      | -0.018
+PESQ       | 1.058      | 1.084      | +0.026
+OSINR (dB) | -26.032      | -26.836      | -0.804
+----------------------------------------------
+Spectrogram: eval_13_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit:
+
+[Test Case #14]
+Target: 4594-902-0050.flac
+Noise:  1482-140067-0016.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #14)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.671      | 0.605      | -0.066
+PESQ       | 1.042      | 1.084      | +0.041
+OSINR (dB) | -26.052      | -28.409      | -2.358
+----------------------------------------------
+Spectrogram: eval_14_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit:
+
+[Test Case #15]
+Target: 2279-141140-0016.flac
+Noise:  7752-113336-0036.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #15)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.691      | 0.679      | -0.012
+PESQ       | 1.026      | 1.094      | +0.068
+OSINR (dB) | -13.083      | -11.336      | +1.747
+----------------------------------------------
+Spectrogram: eval_15_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit:
+
+[Test Case #16]
+Target: 8164-279592-0051.flac
+Noise:  speech-us-gov-0093.wav
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #16)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.583      | 0.491      | -0.091
+PESQ       | 1.033      | 1.066      | +0.033
+OSINR (dB) | -18.516      | -18.495      | +0.021
+----------------------------------------------
+Spectrogram: eval_16_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit:
+
+[Test Case #17]
+Target: 2925-162505-0087.flac
+Noise:  730-359-0006.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #17)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.551      | 0.581      | +0.030
+PESQ       | 1.022      | 1.066      | +0.044
+OSINR (dB) | -27.119      | -23.633      | +3.486
+----------------------------------------------
+Spectrogram: eval_17_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit:
+
+[Test Case #18]
+Target: 4915-245690-0022.flac
+Noise:  6494-60800-0023.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #18)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.599      | 0.531      | -0.068
+PESQ       | 1.028      | 1.104      | +0.077
+OSINR (dB) | -21.804      | -22.188      | -0.384
+----------------------------------------------
+Spectrogram: eval_18_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit:
+
+[Test Case #19]
+Target: 5826-48845-0039.flac
+Noise:  2696-157636-0060.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #19)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.477      | 0.399      | -0.078
+PESQ       | 1.075      | 1.062      | -0.013
+OSINR (dB) | -40.737      | -63.869      | -23.132
+----------------------------------------------
+Spectrogram: eval_19_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit:
+
+[Test Case #20]
+Target: 3618-178097-0008.flac
+Noise:  1944-159227-0025.flac
+Generating Spectrograms...
+Calculating Metrics...
+
+========================================
+ REPORT CARD (Case #20)
+========================================
+METRIC     | INPUT      | OUTPUT     | CHANGE
+----------------------------------------------
+STOI       | 0.680      | 0.568      | -0.111
+PESQ       | 1.048      | 1.090      | +0.042
+OSINR (dB) | -16.656      | -15.301      | +1.355
+----------------------------------------------
+Spectrogram: eval_20_SPECTROGRAM.png
+
+Press [ENTER] to continue, or 'q' to quit: q
