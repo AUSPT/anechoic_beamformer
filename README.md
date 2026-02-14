@@ -11,10 +11,6 @@ Extract your interference into the interference folder. Same deal with above, bu
 
 The whole thing is in a reverberant room with two miocrophones spaced 6cm apart. Run verify_room.py after completing all of the other steps, and you will see:
 
-![A three dimensional reconstruction of the simulation to ensure that the parameters are accurate. featuring a 4.9 metre cubed room at an angle with two microphones (represented as two X's), the target is a circle and interference source is a square](room_geometry_check.png)
-
-We see that the pyhon-based simulation is acccurate. The imaage features a 4.9 metre cubed room at an angle with two microphones (represented as two X's 6cm apart), the target is a circle and interference source is a square. This provides a visual confirmation that our model is beinng trained on the correct specifications as per the ISPC (International Signak Processing Cup) rules.
-
 The models end up being approximately twelve megabytes which is a suitable sized model for a mid-range phone.
 
 I have been experimenting with different numbers of hours of speech.
